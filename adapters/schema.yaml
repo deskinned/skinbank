@@ -1,0 +1,55 @@
+# JSON Schema for adapter format
+$schema: "http://json-schema.org/draft-07/schema#"
+title: GitSkin Adapter
+type: object
+required: [page, components]
+properties:
+  page:
+    type: string
+    description: GitHub page this adapter targets
+  components:
+    type: object
+    additionalProperties:
+      $ref: "#/definitions/component"
+definitions:
+  component:
+    type: object
+    required: [description, strategies]
+    properties:
+      description:
+        type: string
+      strategies:
+        type: array
+        items:
+          $ref: "#/definitions/strategy"
+      sanity:
+        $ref: "#/definitions/sanity"
+  strategy:
+    type: object
+    required: [type, selector, confidence]
+    properties:
+      type:
+        type: string
+        enum: [aria, data-attr, structural, classname]
+      selector:
+        type: string
+      confidence:
+        type: number
+        minimum: 0
+        maximum: 1
+  sanity:
+    type: object
+    properties:
+      tag:
+        type: string
+      minWidth:
+        type: number
+      minHeight:
+        type: number
+      mustContain:
+        type: string
+      mustNotContain:
+        type: string
+      visibleOnly:
+        type: boolean
+        default: true

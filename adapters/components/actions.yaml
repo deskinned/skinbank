@@ -1,0 +1,41 @@
+# GitHub Actions page components
+page: actions
+components:
+  WorkflowList:
+    description: Left sidebar listing all workflows
+    strategies:
+      - type: aria
+        selector: 'nav[aria-label="Workflows"]'
+        confidence: 0.9
+    sanity:
+      tag: nav
+
+  RunList:
+    description: Table of workflow runs
+    strategies:
+      - type: data-attr
+        selector: '[data-testid="workflow-runs"]'
+        confidence: 0.85
+    sanity:
+      tag: div
+
+  RunDetail:
+    description: Individual run detail view with job graph
+    strategies:
+      - type: data-attr
+        selector: '[data-testid="run-detail"]'
+        confidence: 0.85
+    sanity:
+      tag: div
+
+  LogViewer:
+    description: Job log output viewer
+    strategies:
+      - type: data-attr
+        selector: '[data-testid="log-viewer"]'
+        confidence: 0.85
+      - type: classname
+        selector: ".js-log-output"
+        confidence: 0.5
+    sanity:
+      tag: div

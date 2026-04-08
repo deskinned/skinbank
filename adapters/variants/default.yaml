@@ -1,0 +1,4 @@
+# Default variant — standard GitHub page rendering
+variant: default
+description: Standard server-rendered GitHub pages
+overrides: {}

@@ -1,0 +1,67 @@
+# GitSkin token → Primer CSS variable mapping
+#
+# Each key is a GitSkin token path (dot-separated).
+# Each value is the Primer CSS custom property it maps to.
+
+canvas.default: "--color-canvas-default"
+canvas.subtle: "--color-canvas-subtle"
+canvas.inset: "--color-canvas-inset"
+canvas.overlay: "--color-canvas-overlay"
+
+fg.default: "--color-fg-default"
+fg.muted: "--color-fg-muted"
+fg.subtle: "--color-fg-subtle"
+fg.onEmphasis: "--color-fg-on-emphasis"
+
+accent.fg: "--color-accent-fg"
+accent.emphasis: "--color-accent-emphasis"
+accent.muted: "--color-accent-muted"
+accent.subtle: "--color-accent-subtle"
+
+border.default: "--color-border-default"
+border.muted: "--color-border-muted"
+border.subtle: "--color-border-subtle"
+
+btn.primary.bg: "--color-btn-primary-bg"
+btn.primary.text: "--color-btn-primary-text"
+btn.primary.border: "--color-btn-primary-border"
+btn.bg: "--color-btn-bg"
+btn.text: "--color-btn-text"
+btn.border: "--color-btn-border"
+btn.hover.bg: "--color-btn-hover-bg"
+
+success.fg: "--color-success-fg"
+success.emphasis: "--color-success-emphasis"
+success.muted: "--color-success-muted"
+success.subtle: "--color-success-subtle"
+
+danger.fg: "--color-danger-fg"
+danger.emphasis: "--color-danger-emphasis"
+danger.muted: "--color-danger-muted"
+danger.subtle: "--color-danger-subtle"
+
+warning.fg: "--color-attention-fg"
+warning.emphasis: "--color-attention-emphasis"
+warning.muted: "--color-attention-muted"
+warning.subtle: "--color-attention-subtle"
+
+done.fg: "--color-done-fg"
+done.emphasis: "--color-done-emphasis"
+
+open.fg: "--color-open-fg"
+open.emphasis: "--color-open-emphasis"
+
+closed.fg: "--color-closed-fg"
+closed.emphasis: "--color-closed-emphasis"
+
+diff.addition.bg: "--diffBlob-addition-bgColor-line"
+diff.addition.numBg: "--diffBlob-addition-bgColor-num"
+diff.deletion.bg: "--diffBlob-deletion-bgColor-line"
+diff.deletion.numBg: "--diffBlob-deletion-bgColor-num"
+
+header.bg: "--color-header-bg"
+header.text: "--color-header-text"
+header.logo: "--color-header-logo"
+
+sidebar.bg: "--color-sidebar-bg"
+sidebar.border: "--color-sidebar-border"

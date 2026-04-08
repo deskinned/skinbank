@@ -1,0 +1,44 @@
+# User profile page components
+page: profile
+components:
+  ProfileCard:
+    description: User avatar, name, bio, follow button
+    strategies:
+      - type: data-attr
+        selector: '[data-testid="profile-card"]'
+        confidence: 0.85
+      - type: structural
+        selector: ".h-card"
+        confidence: 0.6
+    sanity:
+      tag: div
+
+  ContributionGraph:
+    description: The green contribution heatmap
+    strategies:
+      - type: data-attr
+        selector: '[data-testid="contribution-graph"]'
+        confidence: 0.85
+      - type: structural
+        selector: ".js-calendar-graph"
+        confidence: 0.6
+    sanity:
+      tag: div
+
+  PinnedRepos:
+    description: Pinned repositories section
+    strategies:
+      - type: data-attr
+        selector: '[data-testid="pinned-repos"]'
+        confidence: 0.85
+    sanity:
+      tag: div
+
+  ProfileNav:
+    description: Overview/Repositories/Stars/etc. tab navigation
+    strategies:
+      - type: aria
+        selector: 'nav[aria-label="User profile"]'
+        confidence: 0.9
+    sanity:
+      tag: nav

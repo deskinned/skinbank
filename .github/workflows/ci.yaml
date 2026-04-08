@@ -1,0 +1,100 @@
+name: CI
+on:
+  pull_request_target:
+    branches: [main]
+
+permissions:
+  pull-requests: write
+  contents: read
+
+jobs:
+  detect:
+    runs-on: ubuntu-latest
+    outputs:
+      pr_type: ${{ steps.pr-type.outputs.type }}
+    steps:
+      - name: Detect PR type
+        id: pr-type
+        env:
+          GH_TOKEN: ${{ github.token }}
+          PR_NUMBER: ${{ github.event.pull_request.number }}
+        run: |
+          CHANGED_FILES=$(gh pr diff "$PR_NUMBER" --name-only)
+          HAS_THEME=$(echo "$CHANGED_FILES" | grep '^themes/' || true)
+          HAS_CODE=$(echo "$CHANGED_FILES" | grep -v '^themes/' | grep -v '^$' || true)
+          if [ -n "$HAS_THEME" ] && [ -n "$HAS_CODE" ]; then
+            echo "type=both" >> $GITHUB_OUTPUT
+          elif [ -n "$HAS_THEME" ]; then
+            echo "type=theme" >> $GITHUB_OUTPUT
+          else
+            echo "type=code" >> $GITHUB_OUTPUT
+          fi
+
+  theme-review:
+    needs: detect
+    if: contains(fromJSON('["theme","both"]'), needs.detect.outputs.pr_type)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.head.sha }}
+      - uses: pnpm/action-setup@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+
+      - name: Validate theme schema
+        run: pnpm run validate -- --themes-only
+
+      - name: Compile theme
+        run: pnpm run build -- --themes-only
+
+      - name: Security scan
+        run: pnpm run security-scan
+
+      - name: Gemini AI review
+        env:
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+          GH_TOKEN: ${{ github.token }}
+          PR_NUMBER: ${{ github.event.pull_request.number }}
+        run: pnpm run ai-review -- --pr "$PR_NUMBER"
+
+      - name: Generate screenshots
+        uses: deskinned/mugshot@v1
+        with:
+          theme-file: ${{ env.THEME_PATH }}
+          pages: repo,pr-diff,profile,code
+          output: screenshots/
+
+      - name: Post review comment
+        env:
+          GH_TOKEN: ${{ github.token }}
+          PR_NUMBER: ${{ github.event.pull_request.number }}
+        run: pnpm run post-review-comment -- --pr "$PR_NUMBER"
+
+  code-review:
+    needs: detect
+    if: contains(fromJSON('["code","both"]'), needs.detect.outputs.pr_type)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+
+      - name: Lint
+        run: pnpm run lint
+
+      - name: Validate all schemas
+        run: pnpm run validate
+
+      - name: Build full registry
+        run: pnpm run build
+
+      - name: Test build scripts
+        run: pnpm run test

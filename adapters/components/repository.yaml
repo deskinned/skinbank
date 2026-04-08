@@ -1,0 +1,57 @@
+# Repository page components
+page: repository
+components:
+  RepoHeader:
+    description: Repository name, owner, visibility badge, star/fork/watch buttons
+    strategies:
+      - type: data-attr
+        selector: '[data-testid="repo-header"]'
+        confidence: 0.9
+      - type: structural
+        selector: "main > div:first-child"
+        confidence: 0.5
+    sanity:
+      tag: div
+      mustContain: "/"
+
+  RepoNav:
+    description: Tab navigation (Code, Issues, Pull requests, Actions, etc.)
+    strategies:
+      - type: aria
+        selector: 'nav[aria-label="Repository"]'
+        confidence: 0.95
+    sanity:
+      tag: nav
+
+  FileTree:
+    description: File/folder listing in Code tab
+    strategies:
+      - type: aria
+        selector: '[role="grid"][aria-label="Files"]'
+        confidence: 0.9
+      - type: data-attr
+        selector: '[data-testid="file-tree"]'
+        confidence: 0.85
+    sanity:
+      tag: div
+
+  ReadmeCard:
+    description: README rendering area
+    strategies:
+      - type: data-attr
+        selector: '[data-testid="readme"]'
+        confidence: 0.9
+      - type: structural
+        selector: 'article.markdown-body'
+        confidence: 0.7
+    sanity:
+      tag: article
+
+  AboutSidebar:
+    description: Repository about/description sidebar
+    strategies:
+      - type: aria
+        selector: '[aria-label="About"]'
+        confidence: 0.85
+    sanity:
+      tag: div

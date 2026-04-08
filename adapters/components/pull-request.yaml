@@ -1,0 +1,54 @@
+# Pull request page components
+page: pull-request
+components:
+  PRHeader:
+    description: PR title, number, state badge, author
+    strategies:
+      - type: data-attr
+        selector: '[data-testid="pull-request-header"]'
+        confidence: 0.9
+      - type: structural
+        selector: "main > div > div:first-child > h1"
+        confidence: 0.4
+    sanity:
+      tag: div
+      mustContain: "#"
+
+  PRDiffView:
+    description: The file diff viewer
+    strategies:
+      - type: data-attr
+        selector: '[data-testid="diff-view"]'
+        confidence: 0.9
+      - type: classname
+        selector: ".js-diff-progressive-container"
+        confidence: 0.5
+    sanity:
+      tag: div
+
+  PRConversation:
+    description: Timeline of comments, reviews, commits
+    strategies:
+      - type: data-attr
+        selector: '[data-testid="pull-request-timeline"]'
+        confidence: 0.85
+    sanity:
+      tag: div
+
+  PRSidebar:
+    description: Reviewers, assignees, labels, projects sidebar
+    strategies:
+      - type: aria
+        selector: '[aria-label="Pull request sidebar"]'
+        confidence: 0.85
+    sanity:
+      tag: div
+
+  PRMergeBox:
+    description: Merge status checks and merge button area
+    strategies:
+      - type: data-attr
+        selector: '[data-testid="merge-box"]'
+        confidence: 0.9
+    sanity:
+      tag: div

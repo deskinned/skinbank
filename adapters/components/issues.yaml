@@ -1,0 +1,42 @@
+# Issues page components
+page: issues
+components:
+  IssueHeader:
+    description: Issue title, number, state badge
+    strategies:
+      - type: data-attr
+        selector: '[data-testid="issue-header"]'
+        confidence: 0.9
+    sanity:
+      tag: div
+      mustContain: "#"
+
+  IssueTimeline:
+    description: Comment and event timeline
+    strategies:
+      - type: data-attr
+        selector: '[data-testid="issue-timeline"]'
+        confidence: 0.85
+    sanity:
+      tag: div
+
+  IssueSidebar:
+    description: Assignees, labels, projects, milestone sidebar
+    strategies:
+      - type: aria
+        selector: '[aria-label="Issue sidebar"]'
+        confidence: 0.85
+    sanity:
+      tag: div
+
+  IssueList:
+    description: Issue listing table on the issues index page
+    strategies:
+      - type: aria
+        selector: '[role="group"][aria-label="Issues"]'
+        confidence: 0.85
+      - type: data-attr
+        selector: '[data-testid="issue-list"]'
+        confidence: 0.8
+    sanity:
+      tag: div

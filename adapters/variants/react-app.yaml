@@ -1,0 +1,6 @@
+# React app variant — GitHub's client-side rendered pages
+variant: react-app
+description: React-based GitHub pages (newer rendering path)
+detection:
+  selector: '[data-turbo-body]'
+overrides: {}
