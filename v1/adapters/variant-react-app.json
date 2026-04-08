@@ -1,0 +1,8 @@
+{
+  "variant": "react-app",
+  "description": "React-based GitHub pages (newer rendering path)",
+  "detection": {
+    "selector": "[data-turbo-body]"
+  },
+  "overrides": {}
+}

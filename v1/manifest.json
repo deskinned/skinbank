@@ -1,0 +1,13 @@
+{
+  "version": 1,
+  "adapters": [
+    "actions",
+    "global",
+    "issues",
+    "profile",
+    "pull-request",
+    "repository"
+  ],
+  "themes": [],
+  "built": "2026-04-08T12:25:45.355Z"
+}

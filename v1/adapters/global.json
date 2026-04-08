@@ -1,0 +1,54 @@
+{
+  "page": "global",
+  "components": {
+    "AppHeader": {
+      "description": "Top navigation bar (logo, search, notifications, user menu)",
+      "strategies": [
+        {
+          "type": "aria",
+          "selector": "header[role=\"banner\"]",
+          "confidence": 0.95
+        },
+        {
+          "type": "structural",
+          "selector": "body > div.header",
+          "confidence": 0.5
+        }
+      ],
+      "sanity": {
+        "tag": "header"
+      }
+    },
+    "GlobalSidebar": {
+      "description": "Collapsible left sidebar navigation",
+      "strategies": [
+        {
+          "type": "aria",
+          "selector": "nav[aria-label=\"Global\"]",
+          "confidence": 0.9
+        },
+        {
+          "type": "data-attr",
+          "selector": "[data-testid=\"global-sidebar\"]",
+          "confidence": 0.85
+        }
+      ],
+      "sanity": {
+        "tag": "nav"
+      }
+    },
+    "Footer": {
+      "description": "Page footer with links",
+      "strategies": [
+        {
+          "type": "structural",
+          "selector": "body > footer",
+          "confidence": 0.7
+        }
+      ],
+      "sanity": {
+        "tag": "footer"
+      }
+    }
+  }
+}

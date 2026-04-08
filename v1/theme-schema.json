@@ -1,0 +1,76 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "GitSkin Theme",
+  "type": "object",
+  "required": [
+    "meta",
+    "tokens"
+  ],
+  "properties": {
+    "meta": {
+      "type": "object",
+      "required": [
+        "name",
+        "author",
+        "version",
+        "description"
+      ],
+      "properties": {
+        "name": {
+          "type": "string",
+          "pattern": "^[a-z0-9-]+$"
+        },
+        "author": {
+          "type": "string"
+        },
+        "version": {
+          "type": "string",
+          "pattern": "^\\d+\\.\\d+\\.\\d+$"
+        },
+        "description": {
+          "type": "string",
+          "maxLength": 200
+        },
+        "tags": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "maxItems": 10
+        },
+        "level": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 4
+        }
+      }
+    },
+    "tokens": {
+      "type": "object",
+      "description": "Primer token overrides"
+    },
+    "typography": {
+      "type": "object",
+      "description": "Font and size overrides (Level 1+)"
+    },
+    "components": {
+      "type": "object",
+      "description": "Per-component token and CSS overrides (Level 2+)",
+      "additionalProperties": {
+        "type": "object",
+        "properties": {
+          "tokens": {
+            "type": "object"
+          },
+          "css": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "customCSS": {
+      "type": "string",
+      "description": "Global custom CSS (Level 4 only)"
+    }
+  }
+}
