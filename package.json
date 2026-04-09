@@ -9,11 +9,13 @@
     "validate": "tsx scripts/validate.ts",
     "security-scan": "tsx scripts/security-scan.ts",
     "test": "vitest run",
-    "lint": "eslint scripts/ --ext .ts && prettier --check .",
+    "lint": "eslint scripts/ && prettier --check .",
     "format": "prettier --write ."
   },
   "devDependencies": {
+    "@eslint/js": "^10.0.1",
     "@types/js-yaml": "^4.0.9",
+    "@types/node": "^25.5.2",
     "@typescript-eslint/eslint-plugin": "^8.58.1",
     "@typescript-eslint/parser": "^8.58.1",
     "ajv": "^8.18.0",
@@ -22,6 +24,7 @@
     "prettier": "^3.8.1",
     "tsx": "^4.21.0",
     "typescript": "^6.0.2",
+    "typescript-eslint": "^8.58.1",
     "vitest": "^4.1.3"
   }
 }
