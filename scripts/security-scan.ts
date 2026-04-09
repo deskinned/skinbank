@@ -44,11 +44,21 @@ function checkLine(line: string, lineNum: number, findings: Finding[]): void {
   }
 
   if (/expression\s*\(/i.test(line)) {
-    findings.push({ severity: 'BLOCK', pattern: 'expression()', line: lineNum, context: line.trim() });
+    findings.push({
+      severity: 'BLOCK',
+      pattern: 'expression()',
+      line: lineNum,
+      context: line.trim(),
+    });
   }
 
   if (/-moz-binding/i.test(line)) {
-    findings.push({ severity: 'BLOCK', pattern: '-moz-binding', line: lineNum, context: line.trim() });
+    findings.push({
+      severity: 'BLOCK',
+      pattern: '-moz-binding',
+      line: lineNum,
+      context: line.trim(),
+    });
   }
 
   if (/behavior\s*:/i.test(line)) {
@@ -95,11 +105,14 @@ function scanCSS(css: string): Finding[] {
   const lines = css.split('\n');
 
   for (let i = 0; i < lines.length; i++) {
-    checkLine(lines[i]!, i + 1, findings);
+    const line = lines[i];
+    if (line !== undefined) checkLine(line, i + 1, findings);
   }
 
   // Check position + z-index combo across the full CSS
-  const positionBlocks = css.matchAll(/position\s*:\s*(?:fixed|absolute)[^}]*z-index\s*:\s*(\d+)/gi);
+  const positionBlocks = css.matchAll(
+    /position\s*:\s*(?:fixed|absolute)[^}]*z-index\s*:\s*(\d+)/gi,
+  );
   for (const match of positionBlocks) {
     if (parseInt(match[1] ?? '0', 10) > 9999) {
       findings.push({
@@ -115,7 +128,7 @@ function scanCSS(css: string): Finding[] {
   if (depth > 10) {
     findings.push({
       severity: 'FLAG',
-      pattern: `Selector depth ${depth} > 10 — performance DoS risk`,
+      pattern: `Selector depth ${String(depth)} > 10 — performance DoS risk`,
       line: 0,
       context: '',
     });
@@ -179,10 +192,12 @@ for (const { label, findings } of results) {
 
   if (blocks.length > 0) hasBlocks = true;
 
-  console.log(`  ${blocks.length > 0 ? '✗' : '⚠'} ${label} — ${blocks.length} blocked, ${flags.length} warnings`);
+  console.log(
+    `  ${blocks.length > 0 ? '✗' : '⚠'} ${label} — ${String(blocks.length)} blocked, ${String(flags.length)} warnings`,
+  );
   for (const f of findings) {
     const prefix = f.severity === 'BLOCK' ? 'BLOCKED' : 'WARNING';
-    const loc = f.line > 0 ? ` (line ${f.line})` : '';
+    const loc = f.line > 0 ? ` (line ${String(f.line)})` : '';
     console.log(`    ${prefix}: ${f.pattern}${loc}`);
     if (f.context) console.log(`      ${f.context}`);
   }
@@ -193,6 +208,6 @@ if (results.length === 0) {
 }
 
 console.log(
-  `\n${results.length} themes scanned, ${results.filter((r) => r.findings.some((f) => f.severity === 'BLOCK')).length} blocked`,
+  `\n${String(results.length)} themes scanned, ${String(results.filter((r) => r.findings.some((f) => f.severity === 'BLOCK')).length)} blocked`,
 );
 process.exit(hasBlocks ? 1 : 0);

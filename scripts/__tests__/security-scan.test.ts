@@ -65,7 +65,9 @@ describe('security scanner', () => {
   });
 
   it('blocks url() with non-allowlisted domain', () => {
-    const { exitCode, output } = scanTheme(makeSkin('div { background: url("https://evil.com/img.png"); }'));
+    const { exitCode, output } = scanTheme(
+      makeSkin('div { background: url("https://evil.com/img.png"); }'),
+    );
     expect(exitCode).toBe(1);
     expect(output).toContain('non-allowlisted');
   });
@@ -78,7 +80,9 @@ describe('security scanner', () => {
   });
 
   it('allows data: URLs', () => {
-    const { exitCode } = scanTheme(makeSkin('div { background: url("data:image/png;base64,abc"); }'));
+    const { exitCode } = scanTheme(
+      makeSkin('div { background: url("data:image/png;base64,abc"); }'),
+    );
     expect(exitCode).toBe(0);
   });
 

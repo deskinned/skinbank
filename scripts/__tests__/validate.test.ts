@@ -4,7 +4,7 @@ import { describe, it, expect } from 'vitest';
 import { readFileSync } from 'node:fs';
 import { join } from 'node:path';
 import yaml from 'js-yaml';
-import Ajv from 'ajv';
+import Ajv, { type ValidateFunction } from 'ajv';
 
 const ROOT = join(import.meta.dirname, '..', '..');
 
@@ -12,9 +12,13 @@ function loadSchema(path: string): Record<string, unknown> {
   return yaml.load(readFileSync(join(ROOT, path), 'utf8')) as Record<string, unknown>;
 }
 
-describe('theme schema validation', () => {
+function compileSchema(path: string): ValidateFunction {
   const ajv = new Ajv({ allErrors: true });
-  const validate = ajv.compile(loadSchema('themes/schema.yaml'));
+  return ajv.compile(loadSchema(path));
+}
+
+describe('theme schema validation', () => {
+  const validate = compileSchema('themes/schema.yaml');
 
   it('accepts a valid theme', () => {
     const theme = {
@@ -26,7 +30,13 @@ describe('theme schema validation', () => {
 
   it('accepts a Level 2 theme with components', () => {
     const theme = {
-      meta: { name: 'level-two', author: 'test', version: '1.0.0', description: 'Level 2', level: 2 },
+      meta: {
+        name: 'level-two',
+        author: 'test',
+        version: '1.0.0',
+        description: 'Level 2',
+        level: 2,
+      },
       tokens: { 'canvas.default': '#000' },
       components: { RepoHeader: { tokens: { 'border.default': '#111' } } },
     };
@@ -79,8 +89,7 @@ describe('theme schema validation', () => {
 });
 
 describe('adapter schema validation', () => {
-  const ajv = new Ajv({ allErrors: true });
-  const validate = ajv.compile(loadSchema('adapters/schema.yaml'));
+  const validate = compileSchema('adapters/schema.yaml');
 
   it('accepts a valid adapter', () => {
     const adapter = {
@@ -98,7 +107,10 @@ describe('adapter schema validation', () => {
   it('rejects adapter missing page field', () => {
     const adapter = {
       components: {
-        Test: { description: 'test', strategies: [{ type: 'aria', selector: 'x', confidence: 0.5 }] },
+        Test: {
+          description: 'test',
+          strategies: [{ type: 'aria', selector: 'x', confidence: 0.5 }],
+        },
       },
     };
     expect(validate(adapter)).toBe(false);
@@ -141,9 +153,10 @@ describe('adapter schema validation', () => {
 
 describe('primer-map validation', () => {
   it('all values start with --', () => {
-    const map = yaml.load(
-      readFileSync(join(ROOT, 'adapters/primer-map.yaml'), 'utf8'),
-    ) as Record<string, string>;
+    const map = yaml.load(readFileSync(join(ROOT, 'adapters/primer-map.yaml'), 'utf8')) as Record<
+      string,
+      string
+    >;
     for (const [key, value] of Object.entries(map)) {
       expect(value, `${key} should map to a CSS custom property`).toMatch(/^--/);
     }

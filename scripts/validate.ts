@@ -3,7 +3,7 @@
 import { readFileSync, readdirSync, existsSync } from 'node:fs';
 import { join } from 'node:path';
 import yaml from 'js-yaml';
-import Ajv from 'ajv';
+import Ajv, { type ValidateFunction, type ErrorObject } from 'ajv';
 
 const ROOT = join(import.meta.dirname, '..');
 
@@ -22,21 +22,28 @@ function loadYamlSchema(path: string): Record<string, unknown> {
   return yaml.load(readFileSync(path, 'utf8')) as Record<string, unknown>;
 }
 
-function validateFiles(): ValidationResult[] {
+function compileSchema(schemaPath: string): ValidateFunction {
   const ajv = new Ajv({ allErrors: true });
+  return ajv.compile(loadYamlSchema(schemaPath));
+}
+
+function formatErrors(errors: ErrorObject[] | null | undefined): string[] {
+  return (errors ?? []).map((e) => `${e.instancePath} ${e.message ?? 'unknown error'}`);
+}
+
+function validateFiles(): ValidationResult[] {
   const results: ValidationResult[] = [];
 
   if (!adaptersOnly) {
-    const themeSchema = loadYamlSchema(join(ROOT, 'themes', 'schema.yaml'));
-    const validateTheme = ajv.compile(themeSchema);
+    const validateTheme = compileSchema(join(ROOT, 'themes', 'schema.yaml'));
 
     if (singleTheme) {
       const data = yaml.load(readFileSync(singleTheme, 'utf8'));
-      const valid = validateTheme(data) as boolean;
+      const valid = validateTheme(data);
       results.push({
         file: singleTheme,
-        valid,
-        errors: valid ? [] : (validateTheme.errors ?? []).map((e) => `${e.instancePath} ${e.message}`),
+        valid: valid,
+        errors: valid ? [] : formatErrors(validateTheme.errors),
       });
     } else {
       const themesDir = join(ROOT, 'themes');
@@ -46,11 +53,11 @@ function validateFiles(): ValidationResult[] {
           const skinPath = join(themesDir, dir.name, 'theme.skin');
           if (!existsSync(skinPath)) continue;
           const data = yaml.load(readFileSync(skinPath, 'utf8'));
-          const valid = validateTheme(data) as boolean;
+          const valid = validateTheme(data);
           results.push({
             file: `themes/${dir.name}/theme.skin`,
-            valid,
-            errors: valid ? [] : (validateTheme.errors ?? []).map((e) => `${e.instancePath} ${e.message}`),
+            valid: valid,
+            errors: valid ? [] : formatErrors(validateTheme.errors),
           });
         }
       }
@@ -58,18 +65,17 @@ function validateFiles(): ValidationResult[] {
   }
 
   if (!themesOnly) {
-    const adapterSchema = loadYamlSchema(join(ROOT, 'adapters', 'schema.yaml'));
-    const validateAdapter = ajv.compile(adapterSchema);
+    const validateAdapter = compileSchema(join(ROOT, 'adapters', 'schema.yaml'));
 
     const componentsDir = join(ROOT, 'adapters', 'components');
     if (existsSync(componentsDir)) {
       for (const file of readdirSync(componentsDir).filter((f) => f.endsWith('.yaml'))) {
         const data = yaml.load(readFileSync(join(componentsDir, file), 'utf8'));
-        const valid = validateAdapter(data) as boolean;
+        const valid = validateAdapter(data);
         results.push({
           file: `adapters/components/${file}`,
-          valid,
-          errors: valid ? [] : (validateAdapter.errors ?? []).map((e) => `${e.instancePath} ${e.message}`),
+          valid: valid,
+          errors: valid ? [] : formatErrors(validateAdapter.errors),
         });
       }
     }
@@ -109,5 +115,7 @@ for (const result of results) {
   }
 }
 
-console.log(`\n${results.length} files validated, ${results.filter((r) => !r.valid).length} failed`);
+const total = results.length;
+const failed = results.filter((r) => !r.valid).length;
+console.log(`\n${String(total)} files validated, ${String(failed)} failed`);
 process.exit(hasErrors ? 1 : 0);
