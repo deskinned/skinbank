@@ -8,7 +8,7 @@ components:
         selector: '[data-testid="profile-card"]'
         confidence: 0.85
       - type: structural
-        selector: ".h-card"
+        selector: '.h-card'
         confidence: 0.6
     sanity:
       tag: div
@@ -20,7 +20,7 @@ components:
         selector: '[data-testid="contribution-graph"]'
         confidence: 0.85
       - type: structural
-        selector: ".js-calendar-graph"
+        selector: '.js-calendar-graph'
         confidence: 0.6
     sanity:
       tag: div

@@ -1,5 +1,5 @@
 # JSON Schema for .skin theme format
-$schema: "http://json-schema.org/draft-07/schema#"
+$schema: 'http://json-schema.org/draft-07/schema#'
 title: GitSkin Theme
 type: object
 required: [meta, tokens]
@@ -10,7 +10,7 @@ properties:
     properties:
       name:
         type: string
-        pattern: "^[a-z0-9-]+$"
+        pattern: '^[a-z0-9-]+$'
       author:
         type: string
       version:

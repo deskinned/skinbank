@@ -1,3 +1,3 @@
 # Theme Authoring Guide
 
-*Coming soon.*
+_Coming soon._

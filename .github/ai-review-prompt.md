@@ -14,6 +14,7 @@ You are reviewing a `.skin` theme file submitted to the GitSkin skinbank. Your j
 ## Output format
 
 Provide a structured review with:
+
 - **Verdict**: APPROVE, REQUEST_CHANGES, or BLOCK
 - **Summary**: 1-2 sentences
 - **Issues**: List of specific problems (if any)

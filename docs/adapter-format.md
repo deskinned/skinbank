@@ -1,3 +1,3 @@
 # Adapter Format Specification
 
-*Coming soon.*
+_Coming soon._

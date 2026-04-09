@@ -8,11 +8,11 @@ components:
         selector: '[data-testid="repo-header"]'
         confidence: 0.9
       - type: structural
-        selector: "main > div:first-child"
+        selector: 'main > div:first-child'
         confidence: 0.5
     sanity:
       tag: div
-      mustContain: "/"
+      mustContain: '/'
 
   RepoNav:
     description: Tab navigation (Code, Issues, Pull requests, Actions, etc.)

@@ -1,5 +1,5 @@
 # JSON Schema for adapter format
-$schema: "http://json-schema.org/draft-07/schema#"
+$schema: 'http://json-schema.org/draft-07/schema#'
 title: GitSkin Adapter
 type: object
 required: [page, components]
@@ -10,7 +10,7 @@ properties:
   components:
     type: object
     additionalProperties:
-      $ref: "#/definitions/component"
+      $ref: '#/definitions/component'
 definitions:
   component:
     type: object
@@ -21,9 +21,9 @@ definitions:
       strategies:
         type: array
         items:
-          $ref: "#/definitions/strategy"
+          $ref: '#/definitions/strategy'
       sanity:
-        $ref: "#/definitions/sanity"
+        $ref: '#/definitions/sanity'
   strategy:
     type: object
     required: [type, selector, confidence]

@@ -35,7 +35,7 @@ components:
         selector: '[data-testid="log-viewer"]'
         confidence: 0.85
       - type: classname
-        selector: ".js-log-output"
+        selector: '.js-log-output'
         confidence: 0.5
     sanity:
       tag: div

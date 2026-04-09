@@ -8,11 +8,11 @@ components:
         selector: '[data-testid="pull-request-header"]'
         confidence: 0.9
       - type: structural
-        selector: "main > div > div:first-child > h1"
+        selector: 'main > div > div:first-child > h1'
         confidence: 0.4
     sanity:
       tag: div
-      mustContain: "#"
+      mustContain: '#'
 
   PRDiffView:
     description: The file diff viewer
@@ -21,7 +21,7 @@ components:
         selector: '[data-testid="diff-view"]'
         confidence: 0.9
       - type: classname
-        selector: ".js-diff-progressive-container"
+        selector: '.js-diff-progressive-container'
         confidence: 0.5
     sanity:
       tag: div

@@ -8,7 +8,7 @@ components:
         selector: 'header[role="banner"]'
         confidence: 0.95
       - type: structural
-        selector: "body > div.header"
+        selector: 'body > div.header'
         confidence: 0.5
     sanity:
       tag: header
@@ -29,7 +29,7 @@ components:
     description: Page footer with links
     strategies:
       - type: structural
-        selector: "body > footer"
+        selector: 'body > footer'
         confidence: 0.7
     sanity:
       tag: footer

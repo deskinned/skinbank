@@ -1,3 +1,3 @@
 # Contributing to skinbank
 
-*Coming soon.*
+_Coming soon._

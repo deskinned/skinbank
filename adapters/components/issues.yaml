@@ -9,7 +9,7 @@ components:
         confidence: 0.9
     sanity:
       tag: div
-      mustContain: "#"
+      mustContain: '#'
 
   IssueTimeline:
     description: Comment and event timeline
