@@ -1,4 +1,18 @@
 {
-  "themes": [],
-  "updated": "2026-04-09T08:28:44.967Z"
+  "themes": [
+    {
+      "id": "obsidian",
+      "name": "obsidian",
+      "author": "deskinned",
+      "version": "1.0.0",
+      "description": "Deep blacks, sharp contrasts, electric blue accents — GitHub stripped to its core",
+      "tags": [
+        "dark",
+        "minimal",
+        "high-contrast"
+      ],
+      "level": 2
+    }
+  ],
+  "updated": "2026-04-09T08:39:43.127Z"
 }

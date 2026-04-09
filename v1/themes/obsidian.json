@@ -1,0 +1,82 @@
+{
+  "meta": {
+    "name": "obsidian",
+    "author": "deskinned",
+    "version": "1.0.0",
+    "description": "Deep blacks, sharp contrasts, electric blue accents — GitHub stripped to its core",
+    "tags": [
+      "dark",
+      "minimal",
+      "high-contrast"
+    ],
+    "level": 2
+  },
+  "tokens": {
+    "canvas.default": "#0a0a0f",
+    "canvas.subtle": "#111118",
+    "canvas.inset": "#06060a",
+    "canvas.overlay": "#16161f",
+    "fg.default": "#e8e8ed",
+    "fg.muted": "#8b8b9e",
+    "fg.subtle": "#55556a",
+    "fg.onEmphasis": "#ffffff",
+    "accent.fg": "#4d9eff",
+    "accent.emphasis": "#1a6dff",
+    "accent.muted": "#1a3a6d",
+    "accent.subtle": "#0f1f3d",
+    "border.default": "#22222e",
+    "border.muted": "#1a1a24",
+    "border.subtle": "#14141c",
+    "btn.primary.bg": "#1a6dff",
+    "btn.primary.text": "#ffffff",
+    "btn.primary.border": "#2a7aff",
+    "btn.bg": "#16161f",
+    "btn.text": "#c8c8d4",
+    "btn.border": "#22222e",
+    "btn.hover.bg": "#1e1e2a",
+    "success.fg": "#3fb950",
+    "success.emphasis": "#238636",
+    "success.muted": "#16291e",
+    "success.subtle": "#0d1f14",
+    "danger.fg": "#f85149",
+    "danger.emphasis": "#da3633",
+    "danger.muted": "#3d1418",
+    "danger.subtle": "#2a0c0e",
+    "warning.fg": "#d29922",
+    "warning.emphasis": "#9e6a03",
+    "warning.muted": "#2c2108",
+    "warning.subtle": "#1e1605",
+    "done.fg": "#a371f7",
+    "done.emphasis": "#8957e5",
+    "open.fg": "#3fb950",
+    "open.emphasis": "#238636",
+    "closed.fg": "#f85149",
+    "closed.emphasis": "#da3633",
+    "diff.addition.bg": "#0d2818",
+    "diff.addition.numBg": "#0f3520",
+    "diff.deletion.bg": "#2a0c0e",
+    "diff.deletion.numBg": "#3d1418",
+    "header.bg": "#06060a",
+    "header.text": "#e8e8ed",
+    "header.logo": "#e8e8ed",
+    "sidebar.bg": "#0a0a0f",
+    "sidebar.border": "#1a1a24"
+  },
+  "typography": {
+    "fontFamily": "'Inter', -apple-system, BlinkMacSystemFont, sans-serif",
+    "monoFontFamily": "'JetBrains Mono', 'Fira Code', monospace"
+  },
+  "components": {
+    "RepoHeader": {
+      "tokens": {
+        "canvas.default": "#06060a",
+        "border.default": "#1a1a24"
+      }
+    },
+    "PRDiffView": {
+      "tokens": {
+        "canvas.default": "#08080d"
+      }
+    }
+  }
+}
