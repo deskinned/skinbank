@@ -100,8 +100,15 @@ function checkLine(line: string, lineNum: number, findings: Finding[]): void {
   }
 }
 
-function scanCSS(css: string): Finding[] {
+function stripComments(css: string): string {
+  return css.replace(/\/\*[\s\S]*?\*\//g, (match) =>
+    '\n'.repeat((match.match(/\n/g) ?? []).length),
+  );
+}
+
+function scanCSS(rawCSS: string): Finding[] {
   const findings: Finding[] = [];
+  const css = stripComments(rawCSS);
   const lines = css.split('\n');
 
   for (let i = 0; i < lines.length; i++) {
