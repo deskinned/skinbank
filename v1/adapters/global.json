@@ -6,48 +6,77 @@
       "strategies": [
         {
           "type": "aria",
-          "selector": "header[role=\"banner\"]",
+          "selector": "header[role=\"banner\"][aria-label=\"Global Navigation Menu\"]",
           "confidence": 0.95
-        },
-        {
-          "type": "structural",
-          "selector": "body > div.header",
-          "confidence": 0.5
         }
       ],
       "sanity": {
-        "tag": "header"
+        "tag": "HEADER"
       }
     },
-    "GlobalSidebar": {
-      "description": "Collapsible left sidebar navigation",
+    "AppHeaderLeft": {
+      "description": "Left section of global header (logo, hamburger menu)",
       "strategies": [
         {
-          "type": "aria",
-          "selector": "nav[aria-label=\"Global\"]",
-          "confidence": 0.9
-        },
-        {
           "type": "data-attr",
-          "selector": "[data-testid=\"global-sidebar\"]",
-          "confidence": 0.85
+          "selector": "[data-testid=\"top-nav-left\"]",
+          "confidence": 0.9
         }
       ],
       "sanity": {
-        "tag": "nav"
+        "tag": "DIV"
+      }
+    },
+    "AppHeaderCenter": {
+      "description": "Center section of global header (search bar)",
+      "strategies": [
+        {
+          "type": "data-attr",
+          "selector": "[data-testid=\"top-nav-center\"]",
+          "confidence": 0.9
+        }
+      ],
+      "sanity": {
+        "tag": "DIV"
+      }
+    },
+    "AppHeaderRight": {
+      "description": "Right section of global header (create button, notifications, user avatar)",
+      "strategies": [
+        {
+          "type": "data-attr",
+          "selector": "[data-testid=\"top-nav-right\"]",
+          "confidence": 0.9
+        }
+      ],
+      "sanity": {
+        "tag": "DIV"
+      }
+    },
+    "UserAvatar": {
+      "description": "Logged-in user avatar image in header",
+      "strategies": [
+        {
+          "type": "data-attr",
+          "selector": "img[data-testid=\"github-avatar\"]",
+          "confidence": 0.9
+        }
+      ],
+      "sanity": {
+        "tag": "IMG"
       }
     },
     "Footer": {
-      "description": "Page footer with links",
+      "description": "Page footer with links and copyright",
       "strategies": [
         {
-          "type": "structural",
-          "selector": "body > footer",
-          "confidence": 0.7
+          "type": "aria",
+          "selector": "footer[role=\"contentinfo\"]",
+          "confidence": 0.95
         }
       ],
       "sanity": {
-        "tag": "footer"
+        "tag": "FOOTER"
       }
     }
   }

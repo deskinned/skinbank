@@ -1,86 +1,212 @@
 {
   "page": "repository",
   "components": {
-    "RepoHeader": {
-      "description": "Repository name, owner, visibility badge, star/fork/watch buttons",
-      "strategies": [
-        {
-          "type": "data-attr",
-          "selector": "[data-testid=\"repo-header\"]",
-          "confidence": 0.9
-        },
-        {
-          "type": "structural",
-          "selector": "main > div:first-child",
-          "confidence": 0.5
-        }
-      ],
-      "sanity": {
-        "tag": "div",
-        "mustContain": "/"
-      }
-    },
     "RepoNav": {
       "description": "Tab navigation (Code, Issues, Pull requests, Actions, etc.)",
       "strategies": [
         {
           "type": "aria",
           "selector": "nav[aria-label=\"Repository\"]",
-          "confidence": 0.95
+          "confidence": 0.9
         }
       ],
       "sanity": {
-        "tag": "nav"
+        "tag": "NAV"
       }
+    },
+    "RepoNavTab": {
+      "description": "Individual repo tab links (data-tab-item attribute)",
+      "strategies": [
+        {
+          "type": "data-attr",
+          "selector": "a[data-tab-item=\"code\"]",
+          "confidence": 0.85
+        }
+      ],
+      "sanity": {
+        "tag": "A"
+      }
+    },
+    "RepoAbout": {
+      "description": "Repository description, topics, license, stars sidebar",
+      "strategies": [
+        {
+          "type": "aria",
+          "selector": "ul[aria-label=\"Repository details\"]",
+          "confidence": 0.85
+        }
+      ],
+      "sanity": {
+        "tag": "UL"
+      }
+    },
+    "RepoSidebar": {
+      "description": "Right sidebar with About, Releases, Packages, Contributors",
+      "strategies": [
+        {
+          "type": "classname",
+          "selector": "div.BorderGrid",
+          "confidence": 0.45
+        }
+      ],
+      "sanity": {
+        "tag": "DIV"
+      }
+    },
+    "LatestCommit": {
+      "description": "Latest commit info bar above file listing",
+      "strategies": [
+        {
+          "type": "data-attr",
+          "selector": "[data-testid=\"latest-commit\"]",
+          "confidence": 0.9
+        }
+      ],
+      "sanity": {
+        "tag": "DIV"
+      }
+    },
+    "LatestCommitDetails": {
+      "description": "Expanded commit details (message, author, date)",
+      "strategies": [
+        {
+          "type": "data-attr",
+          "selector": "[data-testid=\"latest-commit-details\"]",
+          "confidence": 0.9
+        }
+      ]
+    },
+    "RefSelectorButton": {
+      "description": "Branch/tag selector dropdown trigger",
+      "strategies": [
+        {
+          "type": "data-attr",
+          "selector": "[data-testid=\"ref-selector-hotkey-button\"]",
+          "confidence": 0.9
+        }
+      ]
     },
     "FileTree": {
-      "description": "File/folder listing in Code tab",
+      "description": "Directory listing rows in Code tab",
       "strategies": [
-        {
-          "type": "aria",
-          "selector": "[role=\"grid\"][aria-label=\"Files\"]",
-          "confidence": 0.9
-        },
-        {
-          "type": "data-attr",
-          "selector": "[data-testid=\"file-tree\"]",
-          "confidence": 0.85
-        }
-      ],
-      "sanity": {
-        "tag": "div"
-      }
-    },
-    "ReadmeCard": {
-      "description": "README rendering area",
-      "strategies": [
-        {
-          "type": "data-attr",
-          "selector": "[data-testid=\"readme\"]",
-          "confidence": 0.9
-        },
         {
           "type": "structural",
-          "selector": "article.markdown-body",
-          "confidence": 0.7
+          "selector": "table tr.react-directory-row",
+          "confidence": 0.6
         }
-      ],
-      "sanity": {
-        "tag": "article"
-      }
+      ]
     },
-    "AboutSidebar": {
-      "description": "Repository about/description sidebar",
+    "FileTreeNav": {
+      "description": "File tree sidebar navigation panel",
       "strategies": [
         {
           "type": "aria",
-          "selector": "[aria-label=\"About\"]",
-          "confidence": 0.85
+          "selector": "nav[aria-label=\"File Tree Navigation\"]",
+          "confidence": 0.9
         }
       ],
       "sanity": {
-        "tag": "div"
+        "tag": "NAV"
       }
+    },
+    "FileTreeContainer": {
+      "description": "File tree sidebar container",
+      "strategies": [
+        {
+          "type": "data-attr",
+          "selector": "[data-testid=\"repos-file-tree-container\"]",
+          "confidence": 0.9
+        }
+      ],
+      "sanity": {
+        "tag": "DIV"
+      }
+    },
+    "CollapseFileTreeButton": {
+      "description": "Button to collapse the file tree sidebar",
+      "strategies": [
+        {
+          "type": "data-attr",
+          "selector": "[data-testid=\"collapse-file-tree-button\"]",
+          "confidence": 0.9
+        }
+      ]
+    },
+    "Breadcrumbs": {
+      "description": "Path breadcrumb navigation",
+      "strategies": [
+        {
+          "type": "data-attr",
+          "selector": "[data-testid=\"breadcrumbs\"]",
+          "confidence": 0.9
+        }
+      ]
+    },
+    "CodeLinesContainer": {
+      "description": "Main code display area in file view",
+      "strategies": [
+        {
+          "type": "data-attr",
+          "selector": "[data-testid=\"code-lines-container\"]",
+          "confidence": 0.9
+        }
+      ]
+    },
+    "CodeViewer": {
+      "description": "Code lines rendering element",
+      "strategies": [
+        {
+          "type": "classname",
+          "selector": ".react-code-lines",
+          "confidence": 0.6
+        }
+      ],
+      "sanity": {
+        "tag": "DIV"
+      }
+    },
+    "RawButton": {
+      "description": "Raw file view button",
+      "strategies": [
+        {
+          "type": "data-attr",
+          "selector": "[data-testid=\"raw-button\"]",
+          "confidence": 0.9
+        }
+      ],
+      "sanity": {
+        "tag": "A"
+      }
+    },
+    "EditButton": {
+      "description": "File edit button",
+      "strategies": [
+        {
+          "type": "data-attr",
+          "selector": "[data-testid=\"edit-button\"]",
+          "confidence": 0.9
+        }
+      ]
+    },
+    "BlobSize": {
+      "description": "File size display",
+      "strategies": [
+        {
+          "type": "data-attr",
+          "selector": "[data-testid=\"blob-size\"]",
+          "confidence": 0.9
+        }
+      ]
+    },
+    "ExpandFileTreeButton": {
+      "description": "Button to expand the file tree sidebar",
+      "strategies": [
+        {
+          "type": "data-attr",
+          "selector": "[data-testid=\"expand-file-tree-button\"]",
+          "confidence": 0.9
+        }
+      ]
     }
   }
 }

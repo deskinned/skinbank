@@ -1,62 +1,288 @@
 {
   "page": "issues",
   "components": {
+    "IssueContainer": {
+      "description": "Top-level container for the issue viewer",
+      "strategies": [
+        {
+          "type": "data-attr",
+          "selector": "[data-testid=\"issue-viewer-container\"]",
+          "confidence": 0.9
+        }
+      ],
+      "sanity": {
+        "tag": "DIV"
+      }
+    },
     "IssueHeader": {
-      "description": "Issue title, number, state badge",
+      "description": "Issue header with title, number, state badge",
       "strategies": [
         {
           "type": "data-attr",
           "selector": "[data-testid=\"issue-header\"]",
           "confidence": 0.9
+        },
+        {
+          "type": "aria",
+          "selector": "div[role=\"region\"][aria-label=\"Header\"]",
+          "confidence": 0.85
         }
       ],
       "sanity": {
-        "tag": "div",
-        "mustContain": "#"
+        "tag": "DIV"
+      }
+    },
+    "IssueTitle": {
+      "description": "Issue title text element",
+      "strategies": [
+        {
+          "type": "data-attr",
+          "selector": "[data-testid=\"issue-title\"]",
+          "confidence": 0.9
+        }
+      ],
+      "sanity": {
+        "tag": "BDI"
+      }
+    },
+    "IssueState": {
+      "description": "Open/closed state badge",
+      "strategies": [
+        {
+          "type": "data-attr",
+          "selector": "[data-testid=\"header-state\"]",
+          "confidence": 0.9
+        }
+      ],
+      "sanity": {
+        "tag": "SPAN"
+      }
+    },
+    "IssueMetadata": {
+      "description": "Fixed metadata bar (author, date, comment count)",
+      "strategies": [
+        {
+          "type": "data-attr",
+          "selector": "[data-testid=\"issue-metadata-fixed\"]",
+          "confidence": 0.9
+        }
+      ],
+      "sanity": {
+        "tag": "DIV"
+      }
+    },
+    "IssueBody": {
+      "description": "Issue description body container",
+      "strategies": [
+        {
+          "type": "data-attr",
+          "selector": "[data-testid=\"issue-body\"]",
+          "confidence": 0.9
+        }
+      ],
+      "sanity": {
+        "tag": "DIV"
+      }
+    },
+    "IssueBodyViewer": {
+      "description": "Rendered markdown content of issue body",
+      "strategies": [
+        {
+          "type": "data-attr",
+          "selector": "[data-testid=\"issue-body-viewer\"]",
+          "confidence": 0.9
+        }
+      ],
+      "sanity": {
+        "tag": "DIV"
       }
     },
     "IssueTimeline": {
-      "description": "Comment and event timeline",
+      "description": "Timeline of comments, events, and activity",
       "strategies": [
         {
           "type": "data-attr",
-          "selector": "[data-testid=\"issue-timeline\"]",
-          "confidence": 0.85
-        }
-      ],
-      "sanity": {
-        "tag": "div"
-      }
-    },
-    "IssueSidebar": {
-      "description": "Assignees, labels, projects, milestone sidebar",
-      "strategies": [
-        {
-          "type": "aria",
-          "selector": "[aria-label=\"Issue sidebar\"]",
-          "confidence": 0.85
-        }
-      ],
-      "sanity": {
-        "tag": "div"
-      }
-    },
-    "IssueList": {
-      "description": "Issue listing table on the issues index page",
-      "strategies": [
-        {
-          "type": "aria",
-          "selector": "[role=\"group\"][aria-label=\"Issues\"]",
-          "confidence": 0.85
+          "selector": "[data-testid=\"issue-timeline-container\"]",
+          "confidence": 0.9
         },
         {
           "type": "data-attr",
-          "selector": "[data-testid=\"issue-list\"]",
-          "confidence": 0.8
+          "selector": "[data-testid=\"issue-viewer-comments-container\"]",
+          "confidence": 0.85
         }
       ],
       "sanity": {
-        "tag": "div"
+        "tag": "DIV"
+      }
+    },
+    "CommentComposer": {
+      "description": "New comment input area at bottom of timeline",
+      "strategies": [
+        {
+          "type": "data-attr",
+          "selector": "[data-testid=\"comment-composer\"]",
+          "confidence": 0.9
+        }
+      ],
+      "sanity": {
+        "tag": "DIV"
+      }
+    },
+    "IssueSidebar": {
+      "description": "Right sidebar with Assignees, Labels, Projects, Milestone, Development, Participants",
+      "strategies": [
+        {
+          "type": "data-attr",
+          "selector": "[data-testid=\"issue-viewer-metadata-pane\"]",
+          "confidence": 0.9
+        },
+        {
+          "type": "data-attr",
+          "selector": "[data-testid=\"sticky-sidebar\"]",
+          "confidence": 0.85
+        }
+      ],
+      "sanity": {
+        "tag": "DIV"
+      }
+    },
+    "SidebarAssignees": {
+      "description": "Assignees section in sidebar",
+      "strategies": [
+        {
+          "type": "data-attr",
+          "selector": "[data-testid=\"sidebar-assignees-section\"]",
+          "confidence": 0.9
+        }
+      ]
+    },
+    "SidebarLabels": {
+      "description": "Labels section in sidebar",
+      "strategies": [
+        {
+          "type": "data-attr",
+          "selector": "[data-testid=\"sidebar-labels-section\"]",
+          "confidence": 0.9
+        }
+      ]
+    },
+    "SidebarProjects": {
+      "description": "Projects section in sidebar",
+      "strategies": [
+        {
+          "type": "data-attr",
+          "selector": "[data-testid=\"sidebar-projects-section\"]",
+          "confidence": 0.9
+        }
+      ]
+    },
+    "SidebarMilestones": {
+      "description": "Milestones section in sidebar",
+      "strategies": [
+        {
+          "type": "data-attr",
+          "selector": "[data-testid=\"sidebar-milestones-section\"]",
+          "confidence": 0.9
+        }
+      ]
+    },
+    "SidebarDevelopment": {
+      "description": "Development (linked branches/PRs) section in sidebar",
+      "strategies": [
+        {
+          "type": "data-attr",
+          "selector": "[data-testid=\"sidebar-development-section\"]",
+          "confidence": 0.9
+        }
+      ]
+    },
+    "SidebarParticipants": {
+      "description": "Participants section in sidebar",
+      "strategies": [
+        {
+          "type": "data-attr",
+          "selector": "[data-testid=\"sidebar-participants-section\"]",
+          "confidence": 0.9
+        }
+      ]
+    },
+    "ContributorFooter": {
+      "description": "Footer with contribution guidelines and templates",
+      "strategies": [
+        {
+          "type": "data-attr",
+          "selector": "[data-testid=\"contributor-footer\"]",
+          "confidence": 0.9
+        }
+      ]
+    },
+    "IssueSearch": {
+      "description": "Search bar on issues list page",
+      "strategies": [
+        {
+          "type": "aria",
+          "selector": "div[aria-label=\"Search Issues\"]",
+          "confidence": 0.85
+        }
+      ],
+      "sanity": {
+        "tag": "DIV"
+      }
+    },
+    "IssueResults": {
+      "description": "Results container on issues list page",
+      "strategies": [
+        {
+          "type": "structural",
+          "selector": "#repository-results",
+          "confidence": 0.7
+        }
+      ],
+      "sanity": {
+        "tag": "DIV"
+      }
+    },
+    "IssueListItem": {
+      "description": "Title link within each issue list row",
+      "strategies": [
+        {
+          "type": "data-attr",
+          "selector": "[data-testid=\"issue-pr-title-link\"]",
+          "confidence": 0.9
+        }
+      ]
+    },
+    "IssueListStateIcon": {
+      "description": "Open/closed state icon per list row",
+      "strategies": [
+        {
+          "type": "data-attr",
+          "selector": "[data-testid=\"list-row-state-icon\"]",
+          "confidence": 0.9
+        }
+      ]
+    },
+    "IssueListComments": {
+      "description": "Comment count per list row",
+      "strategies": [
+        {
+          "type": "data-attr",
+          "selector": "[data-testid=\"list-row-comments\"]",
+          "confidence": 0.9
+        }
+      ]
+    },
+    "IssuePagination": {
+      "description": "Pagination navigation on issues list",
+      "strategies": [
+        {
+          "type": "aria",
+          "selector": "nav[aria-label=\"Pagination\"]",
+          "confidence": 0.9
+        }
+      ],
+      "sanity": {
+        "tag": "NAV"
       }
     }
   }
