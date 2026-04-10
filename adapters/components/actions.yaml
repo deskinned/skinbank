@@ -1,41 +1,83 @@
 # GitHub Actions page components
+# Covers: workflow list, individual run detail
 page: actions
 components:
-  WorkflowList:
-    description: Left sidebar listing all workflows
+  # --- Workflow list view ---
+
+  ActionsWorkflowNav:
+    description: Left sidebar navigation listing all workflows
     strategies:
       - type: aria
-        selector: 'nav[aria-label="Workflows"]'
+        selector: 'nav[aria-label="Actions Workflows"]'
         confidence: 0.9
     sanity:
-      tag: nav
+      tag: NAV
 
-  RunList:
-    description: Table of workflow runs
+  ActionsFilterBar:
+    description: Filter input for workflow runs
     strategies:
-      - type: data-attr
-        selector: '[data-testid="workflow-runs"]'
+      - type: aria
+        selector: 'input[aria-label="Filter workflow runs"]'
         confidence: 0.85
+      - type: structural
+        selector: 'form[role="search"] input.subnav-search-input'
+        confidence: 0.6
     sanity:
-      tag: div
+      tag: INPUT
 
-  RunDetail:
-    description: Individual run detail view with job graph
+  ActionsRunList:
+    description: List of workflow run items (legacy server-rendered rows)
     strategies:
-      - type: data-attr
-        selector: '[data-testid="run-detail"]'
-        confidence: 0.85
-    sanity:
-      tag: div
-
-  LogViewer:
-    description: Job log output viewer
-    strategies:
-      - type: data-attr
-        selector: '[data-testid="log-viewer"]'
-        confidence: 0.85
       - type: classname
-        selector: '.js-log-output'
+        selector: '.js-socket-channel .Box-row'
         confidence: 0.5
     sanity:
-      tag: div
+      tag: DIV
+
+  ActionsPagination:
+    description: Pagination controls for workflow runs
+    strategies:
+      - type: aria
+        selector: 'div[role="navigation"][aria-label="Pagination"]'
+        confidence: 0.85
+      - type: classname
+        selector: '.pagination'
+        confidence: 0.5
+
+  # --- Run detail view ---
+
+  ActionsRunSummary:
+    description: Workflow run summary header with status, trigger info, timing
+    strategies:
+      - type: aria
+        selector: 'div[aria-label="Workflow run summary"]'
+        confidence: 0.9
+    sanity:
+      tag: DIV
+
+  ActionsRunGraph:
+    description: Visual job dependency graph (uses custom action-graph element)
+    strategies:
+      - type: aria
+        selector: 'div[aria-label="Workflow run graph"]'
+        confidence: 0.9
+    sanity:
+      tag: DIV
+
+  ActionsRunNav:
+    description: Run detail tabs (Summary, job names, Usage, Workflow file)
+    strategies:
+      - type: aria
+        selector: 'nav[aria-label="Workflow run"]'
+        confidence: 0.9
+    sanity:
+      tag: NAV
+
+  ActionsAnnotations:
+    description: Annotations section showing warnings and errors from the run
+    strategies:
+      - type: aria
+        selector: 'div[aria-label="Annotations"]'
+        confidence: 0.9
+    sanity:
+      tag: DIV

@@ -1,54 +1,114 @@
 # Pull request page components
+# Covers: PR conversation tab, PR diff (Files changed) tab
 page: pull-request
 components:
-  PRHeader:
-    description: PR title, number, state badge, author
-    strategies:
-      - type: data-attr
-        selector: '[data-testid="pull-request-header"]'
-        confidence: 0.9
-      - type: structural
-        selector: 'main > div > div:first-child > h1'
-        confidence: 0.4
-    sanity:
-      tag: div
-      mustContain: '#'
-
-  PRDiffView:
-    description: The file diff viewer
-    strategies:
-      - type: data-attr
-        selector: '[data-testid="diff-view"]'
-        confidence: 0.9
-      - type: classname
-        selector: '.js-diff-progressive-container'
-        confidence: 0.5
-    sanity:
-      tag: div
-
-  PRConversation:
-    description: Timeline of comments, reviews, commits
-    strategies:
-      - type: data-attr
-        selector: '[data-testid="pull-request-timeline"]'
-        confidence: 0.85
-    sanity:
-      tag: div
-
-  PRSidebar:
-    description: Reviewers, assignees, labels, projects sidebar
+  PRTabs:
+    description: Pull request tab navigation (Conversation, Commits, Checks, Files changed)
     strategies:
       - type: aria
-        selector: '[aria-label="Pull request sidebar"]'
-        confidence: 0.85
-    sanity:
-      tag: div
-
-  PRMergeBox:
-    description: Merge status checks and merge button area
-    strategies:
-      - type: data-attr
-        selector: '[data-testid="merge-box"]'
+        selector: 'nav[aria-label="Pull request navigation tabs"]'
         confidence: 0.9
     sanity:
-      tag: div
+      tag: NAV
+
+  PRTimeline:
+    description: Conversation timeline containing comments, reviews, and events
+    strategies:
+      - type: classname
+        selector: 'div.js-discussion'
+        confidence: 0.5
+    sanity:
+      tag: DIV
+
+  PRSidebar:
+    description: Right sidebar with Reviewers, Assignees, Labels, Projects, Milestone, Development
+    strategies:
+      - type: structural
+        selector: '#partial-discussion-sidebar'
+        confidence: 0.7
+    sanity:
+      tag: DIV
+
+  PRMergeBox:
+    description: Merge/squash/rebase controls and status checks area
+    strategies:
+      - type: data-attr
+        selector: '[data-testid="mergebox-border-container"]'
+        confidence: 0.9
+    sanity:
+      tag: DIV
+
+  DiffTable:
+    description: Per-file diff table (aria-label includes filename)
+    strategies:
+      - type: aria
+        selector: 'table[aria-label^="Diff for:"]'
+        confidence: 0.9
+    sanity:
+      tag: TABLE
+
+  DiffFileTree:
+    description: Sidebar file tree listing changed files
+    strategies:
+      - type: aria
+        selector: 'ul[aria-label="File Tree"]'
+        confidence: 0.9
+    sanity:
+      tag: UL
+
+  DiffContainer:
+    description: Main container for all diffs on Files changed tab
+    strategies:
+      - type: structural
+        selector: '#diff-comparison-viewer-container'
+        confidence: 0.7
+    sanity:
+      tag: DIV
+
+  IssueSearch:
+    description: Search bar on issue/PR list pages
+    strategies:
+      - type: aria
+        selector: 'div[aria-label="Search Issues"]'
+        confidence: 0.85
+    sanity:
+      tag: DIV
+
+  IssueResults:
+    description: Results container on issue/PR list pages
+    strategies:
+      - type: structural
+        selector: '#repository-results'
+        confidence: 0.7
+    sanity:
+      tag: DIV
+
+  IssueListItem:
+    description: Title link within each issue/PR list row
+    strategies:
+      - type: data-attr
+        selector: '[data-testid="issue-pr-title-link"]'
+        confidence: 0.9
+
+  IssueListStateIcon:
+    description: Open/closed state icon per list row
+    strategies:
+      - type: data-attr
+        selector: '[data-testid="list-row-state-icon"]'
+        confidence: 0.9
+
+  IssueListComments:
+    description: Comment count per list row
+    strategies:
+      - type: data-attr
+        selector: '[data-testid="list-row-comments"]'
+        confidence: 0.9
+
+  IssuePagination:
+    description: Pagination navigation for issue/PR lists
+    strategies:
+      - type: aria
+        selector: 'nav[aria-label="Pagination"]'
+        confidence: 0.9
+    sanity:
+      tag: NAV
