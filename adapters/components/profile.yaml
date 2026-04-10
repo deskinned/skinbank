@@ -1,44 +1,82 @@
 # User profile page components
+# Covers: user profile overview page
 page: profile
 components:
   ProfileCard:
-    description: User avatar, name, bio, follow button
+    description: User vcard container with avatar, name, username, bio, details
     strategies:
-      - type: data-attr
-        selector: '[data-testid="profile-card"]'
-        confidence: 0.85
-      - type: structural
+      - type: classname
         selector: '.h-card'
         confidence: 0.6
     sanity:
-      tag: div
+      tag: DIV
 
-  ContributionGraph:
-    description: The green contribution heatmap
+  ProfileAvatar:
+    description: User profile avatar image
     strategies:
-      - type: data-attr
-        selector: '[data-testid="contribution-graph"]'
-        confidence: 0.85
-      - type: structural
-        selector: '.js-calendar-graph'
+      - type: classname
+        selector: 'img.avatar-user'
+        confidence: 0.55
+    sanity:
+      tag: IMG
+
+  ProfileName:
+    description: User display name (full name)
+    strategies:
+      - type: classname
+        selector: 'span.p-name.vcard-fullname'
         confidence: 0.6
     sanity:
-      tag: div
+      tag: SPAN
 
-  PinnedRepos:
-    description: Pinned repositories section
+  ProfileUsername:
+    description: User login handle
     strategies:
-      - type: data-attr
-        selector: '[data-testid="pinned-repos"]'
-        confidence: 0.85
+      - type: classname
+        selector: 'span.p-nickname.vcard-username'
+        confidence: 0.6
     sanity:
-      tag: div
+      tag: SPAN
+
+  ProfileBio:
+    description: User bio text
+    strategies:
+      - type: classname
+        selector: 'div.p-note.user-profile-bio'
+        confidence: 0.6
+    sanity:
+      tag: DIV
 
   ProfileNav:
-    description: Overview/Repositories/Stars/etc. tab navigation
+    description: Profile tab navigation (Overview, Repositories, Projects, Packages, Stars)
     strategies:
       - type: aria
-        selector: 'nav[aria-label="User profile"]'
-        confidence: 0.9
+        selector: 'nav[aria-label="User"]'
+        confidence: 0.85
     sanity:
-      tag: nav
+      tag: NAV
+
+  ContributionGraph:
+    description: Green contribution heatmap calendar
+    strategies:
+      - type: classname
+        selector: '.js-calendar-graph'
+        confidence: 0.55
+    sanity:
+      tag: DIV
+
+  PinnedRepos:
+    description: Pinned repositories list items (up to 6)
+    strategies:
+      - type: classname
+        selector: '.pinned-item-list-item'
+        confidence: 0.55
+    sanity:
+      tag: LI
+
+  ProfileSidebarDetails:
+    description: Sidebar details (location, organization, links) using vcard microformat
+    strategies:
+      - type: classname
+        selector: 'li.vcard-detail'
+        confidence: 0.55
